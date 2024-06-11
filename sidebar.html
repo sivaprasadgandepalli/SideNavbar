@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>sidebar</title>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        body{
+            width: 100%;
+            background: #282828;
+            text-rendering: optimizeLegibility;
+        }
+        .container{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            position: relative;
+            gap:2px;
+        }
+        .container .sidenav{
+            width:0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: white;
+            background:#191919;
+            z-index: 2; 
+            height: 100%;
+            transition: width 0.4s ease-in-out, z-index 0.4s ease-in-out;
+        }
+        .container .sidenav.toggle {
+            width: 16rem;
+            z-index: 3;
+        }
+        .container .sidenav .side-menu-top{
+        	width: 100%;
+        	display: flex;
+        	align-items: center;
+        	padding-block:4px ;
+        	justify-content: space-between;
+        }
+        .container .sidenav h2{
+            margin-block: 5px;
+            font-size: 1.7rem;
+            padding: 6px 15px;
+            font-family:sans-serif;
+            white-space: nowrap;
+            color:lightskyblue;
+        }
+        .btn{
+            width:34px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .btn span{
+            height:3px;
+            width:100%;
+            border-radius: 10px;
+            display:block;
+            background:antiquewhite;
+        }
+        .devider{
+            width: 100%;
+            height:1px;
+            background: whitesmoke;
+        }
+        .container .sidenav ul{
+            list-style: none;
+            margin-top: 1rem;
+            font-size: 1.3rem;
+            padding-inline: 4px;
+            display:flex;
+            flex-direction: column;
+            gap:8px;
+        }
+        .container .sidenav ul>li{
+            display: block;
+            padding: 8px 20px;
+            color: lightgrey;
+            transition: all .5s ease-in-out;
+        }
+        .container .sidenav ul>li:hover{
+            background:slategrey;
+        }
+        .container .sidenav ul>li:focus{
+            background: lightsalmon;
+        }
+        .container .content{
+            flex-grow: 1;
+            z-index: 1;
+            height: 100%;
+            font-size: 2rem;
+            color: antiquewhite;
+            background: #202020;
+            position: relative; 
+        }
+        .close-btn{
+        	display: block;
+            cursor: pointer;
+        }
+        .content header{
+            background: #181818;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative; 
+            z-index: 2; 
+        }
+        
+        @media only screen and (min-width:768px)
+        {
+            .btn{
+                display: none;    
+            }
+            .container .sidenav{
+                width: 16rem;
+                position: relative;
+            }
+            .close-btn{
+            	display: none;
+                font-family: cursive;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidenav" onmouseleave="toggleSidebar()">
+            <div class="side-menu-top">
+            	<h2>Main menu</h2>
+            	<h2 onclick="toggleSidebar()" class="close-btn">X</h2>
+            </div>
+            <div class="devider"></div>
+            <ul>
+                <li>Home</li>
+                <li>About</li>
+                <li>Contact</li>
+                <li>Services</li>
+                <li>Help</li>
+                <li>Blog</li>
+            </ul>
+        </div>
+        <div class="content">
+            <header>
+                <span class="btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+                <span>AlpineJS</span>
+            </header>
+        </div>
+    </div>
+    <script type="text/javascript">
+        let element=document.querySelector(".sidenav");
+        let btn=document.querySelector(".btn");
+        btn.addEventListener("click",toggleSidebar);
+        
+        document.body.addEventListener('click',(event)=>{
+            if(!element.contains(event.target) && !btn.contains(event.target))
+            {
+                element.classList.remove("toggle");
+            }
+        })
+        function toggleSidebar()
+        {
+            element.classList.toggle("toggle");
+        }
+    </script>
+</body>
+</html>
